@@ -1,3 +1,21 @@
+<style type="text/css">
+.articlebackground {
+  background-image: url('/images/saturn.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  opacity: 0.4;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .articlebackground {
+    display: none;
+  }
+}
+</style>
 <div class="row">
   <div class="col-md-3 p-5" id="content-tab">
     <nav class="nav flex-column nav-pills" aria-orientation="vertical">
@@ -7,6 +25,7 @@
       <a class="nav-link" id="v-pills-settings-tab" href="#contactUs">联系我们</a>
     </nav>
   </div>
+  <div class="articlebackground col-md-9 offset-md-3"></div>
   <div class="col-12 col-md-9" data-spy="scroll" data-target="#content-tab" data-offset="0" style="position: relative; height: 100vh; overflow: scroll">
     <article class="m-5" id="aaaInfo">
       <h2>中国科大学生天文爱好者协会简介</h2>

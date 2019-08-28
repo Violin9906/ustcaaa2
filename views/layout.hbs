@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
   <title>中国科学技术大学天文爱好者协会</title>
   <meta charset='UTF-8'>
@@ -9,6 +9,19 @@
   <link rel="icon" href="/images/logo.png"/>
   <link rel="shortcut icon" href="/images/logo.png"/>
   <meta name="theme-color" content="#336699">
+  <style type="text/css">
+  .footer a:link {
+    color: #ffffff;
+  }
+
+  .footer a:visited {
+    color: #ffffff;
+  }
+
+  .footer a:active {
+    color: #66ccff;
+  }
+  </style>
 </head>
 <body>
 <div class="container-fluid">
@@ -25,22 +38,30 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a href="/" class="nav-link{{#if home}} active{{/if}}" >首页</a>
+              <a href="/" class="nav-link{{#if home}} active{{/if}}">首页</a>
             </li>
             <li class="nav-item">
-              <a href="/about" class="nav-link{{#if about}} active{{/if}}" >关于</a>
+              <a href="/about" class="nav-link{{#if about}} active{{/if}}">关于</a>
             </li>
           </ul>
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a href="/users/login" class="nav-link">登录</a>
-            </li>
-            <li class="nav-item">
-              <a href="/users/register" class="nav-link">注册</a>
-            </li>
-          </ul>
+          {{#if username}}
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a href="/user/{{username}}" class="nav-link">欢迎，{{username}}</a>
+              </li>
+            </ul>
+          {{else}}
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a href="/users/login" class="nav-link">登录</a>
+              </li>
+              <li class="nav-item">
+                <a href="/users/register" class="nav-link">注册</a>
+              </li>
+            </ul>
+          {{/if}}
           <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="搜索文章" aria-label="Search">
+            <input class="form-control mr-sm-2 ml-md-4 ml-lg-4" type="search" placeholder="搜索文章" aria-label="Search">
             <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">搜索</button>
           </form>
         </div>
@@ -52,7 +73,8 @@
   {{{body}}}
 </div>
 <div class="container-fluid">
-  <div class="row clearfix py-3" style="text-align:center; margin-left: -15px; margin-right: -15px; background-color: #003366">
+  <div class="row clearfix py-3 footer"
+       style="text-align:center; margin-left: -15px; margin-right: -15px; background-color: #003366">
     <div class="col-sm-3">
       <ul class="list-unstyled">
         <li>
@@ -128,6 +150,9 @@
           <a href="https://www.eso.org/public/">欧洲南方天文台</a>
         </li>
       </ul>
+    </div>
+    <div class="col text-center">
+      <p class="text-muted">豫ICP备19013041号</p>
     </div>
   </div>
 </div>
