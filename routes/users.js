@@ -14,11 +14,19 @@ router.use(cookieParser());
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send(req.user?req.user.username:'');
+  if (req.user) {
+    res.redirect(303, '/users/' + req.user.username);
+  } else {
+    res.redirect(303, '/users/login');
+  }
 });
 
 router.get('/login', csrfProtection, function(req, res, next) {
-  res.render('login', {'csrf': req.csrfToken()});
+  if (req.user) {
+    res.redirect(303, '/users/' + req.user.username);
+  } else {
+    res.render('login', {'csrf': req.csrfToken()});
+  }
 });
 
 router.post('/login', parseForm, csrfProtection,

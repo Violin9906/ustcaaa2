@@ -59,7 +59,15 @@ db.once('open', function() {
   console.log('Database connected successfully.');
 });
 
-//router
+// public message
+app.use(function (req, res, next) {
+  if (req.user) {
+    res.locals.username = req.user.username;
+  }
+  next();
+});
+
+// router
 app.use(vhost('api.*', apiRouter));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
