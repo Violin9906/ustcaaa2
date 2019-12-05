@@ -85,6 +85,14 @@
     </button>
   </div>
 {{/if}}
+{{#if messages.info}}
+  <div class="alert alert-info" role="alert">
+    {{messages.info}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{{/if}}
 <div class="container-fluid">
   {{{body}}}
 </div>
