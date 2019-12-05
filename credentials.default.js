@@ -12,5 +12,8 @@ module.exports = {
     production: {
       connectionString: 'Your Production Connection String'
     }
+  },
+  sendgrid: {
+    apiKey: 'Your Dev API Key'
   }
 };
