@@ -36,6 +36,7 @@ userSchema.methods.genCheckCode = function (codeLength) {
   this.checkCode = code.substring(0, codeLength).toUpperCase();
   this.checkCodeGenTime = new Date();
   this.save();
+  return this.checkCode;
 };
 
 userSchema.methods.validPassword = function (password) {
