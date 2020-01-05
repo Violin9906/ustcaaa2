@@ -1,0 +1,69 @@
+<style type="text/css">
+.articlebackground {
+  background-image: url('/images/saturn.png');
+  background-repeat: no-repeat;
+  background-position: top;
+  position: absolute;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  opacity: 0.4;
+}
+</style>
+<div class="articlebackground"></div>
+<div class="text-center m-5">
+  <h2>中国科大天文爱好者协会用户注册</h2>
+</div>
+<div class="jumbotron col-sm-8 offset-md-2">
+  <form action="/users/register" method="post" id="registerForm">
+    <input type="hidden" name="_csrf" value="{{csrf}}">
+    <div class="form-group row">
+      <label for="username" class="col-sm-2 offset-sm-2 col-form-label h3 text-md-right">用户名</label>
+      <div class="col-sm-4">
+        <input type="text" id="username" class="form-control" name="username" placeholder="注册后不可更改" required>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="password" class="col-sm-2 offset-sm-2 col-form-label h3 text-md-right">密码</label>
+      <div class="col-sm-4">
+        <input type="password" id="password" class="form-control" name="password" placeholder="密码需不少于8位" required>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="confirmPassword" class="col-sm-2 offset-sm-2 col-form-label h3 text-md-right">确认密码</label>
+      <div class="col-sm-4">
+        <input type="password" id="confirmPassword" class="form-control" name="confirmPassword" placeholder="再次输入密码以确认" required>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="email" class="col-sm-2 offset-sm-2 col-form-label h3 text-md-right">电子邮箱</label>
+      <div class="col-sm-4">
+        <input type="email" id="email" class="form-control" name="email" placeholder="如是科大用户务必填写科大邮箱" required>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-4 offset-md-4 offset-sm-2">
+        <button type="submit" class="btn btn-primary">注册</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+document.getElementById('registerForm').onsubmit = function () {
+  if (document.getElementById('password').value !== document.getElementById('confirmPassword').value) {
+    alert('两次输入的密码不一致，请重新输入！');
+    document.getElementById('password').value = '';
+    document.getElementById('confirmPassword').value = '';
+    return false;
+  }
+  if (document.getElementById('password').value.length < 8) {
+    alert('密码长度不足8位！');
+    document.getElementById('password').value = '';
+    document.getElementById('confirmPassword').value = '';
+    return false;
+  }
+  return true;
+}
+</script>
