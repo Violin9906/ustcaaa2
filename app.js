@@ -18,6 +18,11 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 // view engine setup
+var hbs = require('express-hbs');
+app.engine('hbs', hbs.express4({
+  partialsDir: path.join(__dirname, '/views/partials'),
+  defaultLayout: path.join(__dirname, 'views/layout')
+}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
@@ -27,13 +32,13 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser(credentials.cookieSecret));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
-  secret :  'secret',
-  resave : true,
+  secret: 'secret',
+  resave: true,
   saveUninitialized: false,
-  cookie : {
-    maxAge : 1000 * 60 * 15, // 设置 session 的有效时间，单位毫秒
+  cookie: {
+    maxAge: 1000 * 60 * 15, // 设置 session 的有效时间，单位毫秒
   },
 }));
 app.use(passport.initialize());
@@ -55,7 +60,7 @@ switch (app.get('env')) {
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
+db.once('open', function () {
   console.log('Database connected successfully.');
 });
 

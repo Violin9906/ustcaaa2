@@ -1,0 +1,11 @@
+<style>
+.medal {
+  height: 50px;
+  width: 50px;
+}
+</style>
+<div>
+  {{#each medals}}
+      <img class="medal" src="/resources/medals/{{.}}.svg">
+  {{/each}}
+</div>

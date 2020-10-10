@@ -18,6 +18,7 @@ var userSchema = mongoose.Schema({
   advancements: [String], // 进度列表
   medals: [String], // 勋章列表
   watchedUser: [String], // 关注的用户列表
+  homepagePublic: Boolean, // 个人主页是否开放
   portrait: String, // 头像文件名
   description: String, // 个人描述
   celebrity: Boolean, // 是否认证用户

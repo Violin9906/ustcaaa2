@@ -23,7 +23,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/login', csrfProtection, function (req, res, next) {
   if (req.user) {
-    res.redirect(303, '/users/' + req.user.username);
+    res.redirect(303, '/users/u/' + req.user.username);
   } else {
     res.render('login', {'csrf': req.csrfToken()});
   }
@@ -38,9 +38,20 @@ router.post('/login', parseForm, csrfProtection,
         }
     ),
     function (req, res) {
-      res.redirect('/users/' + req.user.username);
+      res.redirect('/users/u/' + req.user.username);
     }
 );
+
+router.get('/logout', csrfProtection, function (req, res, next) {
+  if (req.user) {
+    req.logout();
+    req.flash('success', '已登出');
+    res.redirect('/');
+  } else {
+    req.flash('error', '您还没有登录');
+    res.redirect(303, '/users/login');
+  }
+});
 
 router.get('/register', csrfProtection, function (req, res, next) {
   res.render('register', {'csrf': req.csrfToken()});
@@ -72,7 +83,7 @@ router.post('/register',
     )
 );
 
-router.get('/:username',
+router.get('/u/:username',
     csrfProtection,
     function (req, res, next) {
       if (!(req.user)) {
@@ -83,14 +94,33 @@ router.get('/:username',
     },
     function (req, res, next) {
       if (req.user.username !== req.params.username) {
-        req.flash('info', '该用户设置了权限，无法查看');
-        res.redirect(303, '/users/' + req.user.username); // TODO 查看他人用户界面
+        User.findOne({'username': req.params.username}, 'paid isUSTC homepagePublic portrait description celebrity achievements advancements medals', function (error, result) {
+          console.log(result);
+          if (result && result.homepagePublic) {
+            res.render('userPage', {
+              'username': req.params.username,
+              'paid': result.paid,
+              'isUSTC': result.isUSTC,
+              'description': result.description,
+              'portrait': result.portrait,
+              'celebrity': result.celebrity,
+              'achievements': result.achievements,
+              'advancements': result.advancements,
+              'medals': result.medals
+            });
+            // TODO 渲染他人主页
+          } else {
+            req.flash('info', '该用户设置了权限，无法查看');
+            res.redirect(303, '/users/u/' + req.user.username);
+          }
+        });
+      } else {
+        next();
       }
-      next();
     },
     function (req, res, next) {
-      // TODO 用户主页
-      res.render('userPage', {
+      // TODO 用户主页：修改密码，设置和展示主页信息，头像上传，设置主页访问权限，（api)
+      res.render('selfPage', {
         'emailChecked': req.user.emailChecked,
         'email': req.user.email,
         'csrf': req.csrfToken()
@@ -98,7 +128,7 @@ router.get('/:username',
     }
 );
 
-router.get('/:username/checkEmail',
+router.get('/u/:username/checkEmail',
     csrfProtection,
     function (req, res, next) {
       if (!req.user) {

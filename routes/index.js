@@ -14,9 +14,9 @@ router.get('/about', function(req, res, next) {
 router.get('/emailcheck/:id/:code', function (req, res, next) {
   CheckMail.check(req.params.code, req.params.id, function (err) {
     if(!err){
-      req.flash('success', '验证成功！')
+      req.flash('success', '验证成功！');
     } else {
-      req.flash('error', '验证失败！')
+      req.flash('error', '验证失败！请重新发送验证邮件');
     }
     res.redirect('/');
   })

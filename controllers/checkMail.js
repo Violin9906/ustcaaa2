@@ -3,12 +3,12 @@ var mongoose = require('mongoose');
 
 var CheckMail = {
   check: function (code, id, callback) {
-    User.findById(id, function (err, user) {
+    User.findById(id, function (error, user) {
       var now = new Date();
       var err = "Failed";
       if((now - user.checkCodeGenTime <= 1800000) && code === user.checkCode && code.length === 20) {
         user.emailChecked = true;
-        // TODO 检查是否科大邮箱
+        user.isUSTC = !!user.email.match(/ustc.edu.cn$/);
         user.save();
         err = 0;
       }

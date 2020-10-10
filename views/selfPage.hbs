@@ -1,0 +1,51 @@
+<style type="text/css">
+
+</style>
+<div class="row">
+  <div class="col-md-3 p-5" id="content-tab">
+    <nav class="nav flex-column nav-pills" aria-orientation="vertical">
+      <a class="nav-link" id="v-pills-home-tab" href="#userInfo">个人简介</a>
+      <a class="nav-link" id="v-pills-messages-tab" href="#advancements">我的进度</a>
+      <a class="nav-link" id="v-pills-settings-tab" href="#achievements">我的成就</a>
+      <a class="nav-link" id="v-pills-settings-tab" href="#userManage">账户管理</a>
+    </nav>
+  </div>
+  <div class="col-12 col-md-9" data-spy="scroll" data-target="#content-tab" data-offset="0" style="position: relative; height: 100vh; overflow: scroll">
+    <article class="m-5" id="userInfo">
+      <h2>个人简介</h2>
+      <p>
+        这个人很懒，什么都没写
+      </p>
+    </article>
+    <article class="m-5" id="advancements">
+      <h2>我的进度</h2>
+      <p>还没做</p>
+    </article>
+    <article class="m-5" id="achievements">
+      <h2>我的成就</h2>
+      <p>还没做</p>
+    </article>
+    <article class="m-5" id="userManage">
+      <h2>账户管理</h2>
+      <h3>邮箱验证</h3>
+      <form method="get" action="/users/u/{{username}}/checkEmail">
+        <input type="hidden" name="_csrf" value="{{csrf}}">
+        <div class="form-group row">
+          <label for="email" class="col-sm-2 offset-sm-2 col-form-label h3 text-md-right">邮箱地址</label>
+          <div class="col-sm-4">
+            <input type="text" id="email" class="form-control" name="email" readonly value="{{email}}">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-4 offset-md-4 offset-sm-2">
+            {{#if emailChecked}}
+              <button type="button" class="btn btn-primary" disabled>已验证</button>
+            {{else}}
+              <button type="submit" class="btn btn-primary">验证邮箱</button>
+            {{/if}}
+          </div>
+        </div>
+      </form>
+    </article>
+  </div>
+</div>
